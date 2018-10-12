@@ -1,0 +1,196 @@
+:root {
+	--info-height: 36px;
+}
+
+body {
+	font-size: 24px;
+	margin: var(--info-height) 0 0 0;
+	overflow: hidden;
+}
+
+button {
+	font-size: 24px;
+}
+
+#info-bar {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: var(--info-height);
+	background: #300868;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#info-bar>span {
+	padding: 0 3px;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#info>span {
+	margin-right: 50px;
+}
+#info>span>span:first-child {
+	color: #CCCCCC;
+	margin-right: 8px;
+}
+
+#time {
+	min-width: 120px;
+	text-align: right;
+}
+
+#page {
+	padding: 1%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#controls-container {
+	margin-right: 1%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+#player-size {
+	min-width: 640px;
+	height: 360px;
+	margin-left: 1%;
+}
+
+#playback-controls {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#play-pause {
+	width: 90px;
+}
+
+#volume-number {
+	min-width: 40px;
+	float: right;
+}
+
+#volume-slider {
+	vertical-align: middle;
+}
+
+#bot-connection {
+	display: flex;
+	align-items: center;
+}
+
+#comm-button {
+	width: 140px;
+	margin-right: 20px;
+}
+
+#options {
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 18px;
+}
+
+#options>label {
+	padding-right: 20px;
+}
+
+#tags-container {
+	font-size: 18px;
+}
+
+.tag-table {
+	border-spacing: 0px;
+}
+
+.tag-table th {
+	padding: 0px;
+	margin: 0px;
+}
+
+/* effectively hide the top row of the inner table*/
+#inner-tag-table th {
+	height: 0px;
+}
+
+.tag-table th:first-child {
+	width: 140px
+}
+
+.tag-table th:not(:first-child) {
+	width: 70px
+}
+
+
+#inner-tag-table {
+	width: 480px;
+	height: 160px;
+	overflow-y: scroll;
+	outline: 1px solid black;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+.tag-table-row {
+	height: 40px;
+}
+
+/* This matches the first column (with the tag name) in the table*/
+.tag-table td:first-child {
+	text-align: right;
+	padding-right: 10px;
+}
+
+/* This matches the other columns (with the radio buttons) */
+.tag-table td:not(:first-child) {
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+}
+
+.tag-table label {
+	margin: 0px;
+	height: 100%;
+	display: block;
+	text-align: center;
+}
+
+.tag-table input[type="radio"] {
+	margin: 0px;
+	height: 100%;
+}
+
+
+/* background colors for the different tag options*/
+.tag-table-require {
+	background: green;
+}
+
+.tag-table-exclude {
+	background: red;
+}
+
+.tag-table-include {
+	background: #80B0FF;
+}
+
+.tag-table-ignore {
+	background: gold;
+}
+
+
+#debug-log {
+	outline: 1px solid black;
+	font-size: 16px;
+	margin: 1%;
+	padding: 2px;
+	width: 98%;
+	height: 240px;
+	overflow-y: scroll;
+}

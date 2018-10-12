@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>YouTube Playlist</title>
+  <meta charset='utf-8'/>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/promise_loader.js"></script>
+  <script src="js/yp_manifest.js"></script>
+</head>
+
+<body>
+  <div id="info-bar">
+    <span id="info">
+    </span>
+    <span id="time">0:00 / 0:00</span>
+  </div>
+
+  <div id="page">
+    <div id="controls-container">
+      <div id="playback-controls">
+        <button type="button" id="play-pause">Pause</button>
+        <span><span>Volume:</span><input id="volume-slider" type="range" min="1" max="100" value="100"><span id="volume-number">100</span></span>
+        <button type="button" id="next">Next</button>
+        <!-- <button type="button" id="reload-songs">Reload Playlist</button> -->
+      </div>
+
+      <div id="bot-connection">
+        <button type="button" id="comm-button">Connect</button>
+        <span id="comm-info">Not currently connected to bot.</span>
+      </div>
+
+      <div id="options">
+        <label><input id='cb-shuffle' type='checkbox'>Shuffle Playlist</label>
+        <label><input id='cb-skip-fail' type='checkbox'>Skip Expected Embed Failures</label>
+        <label><input id='cb-hide-player' type='checkbox'>Hide Video Player</label>
+      </div>
+
+      <div id="tags-container">
+        <div>
+          <table class="tag-table">
+            <tr>
+              <th>Tag</th>
+              <th class="tag-table-require">Require</th>
+              <th class="tag-table-exclude">Exclude</th>
+              <th class="tag-table-include">Include</th>
+              <th class="tag-table-ignore">Ignore</th>
+            </tr>
+          </table>
+        </div>
+        <div id="inner-tag-table">
+          <table id="tag-table" class="tag-table">
+            <tr>
+              <th></th>
+              <th class="tag-table-require"></th>
+              <th class="tag-table-exclude"></th>
+              <th class="tag-table-include"></th>
+              <th class="tag-table-ignore"></th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="player-size">
+      <div id="player-container">
+        <div id="player"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="debug-log">
+  </div>
+</body>
+
+<div id="templates" style="display: none;">
+  <table>
+    <tr id="tag-table-row-template" class="tag-table-row">
+      <td></td>
+      <td><label class="tag-table-require"><input type="radio" value="require"/></label></td>
+      <td><label class="tag-table-exclude"><input type="radio" value="exclude"/></label></td>
+      <td><label class="tag-table-include"><input type="radio" value="include"/></label></td>
+      <td><label class="tag-table-ignore" ><input type="radio" value="ignore"/></label></td>
+    </tr>
+  </table>
+</div>
+
+</html>
