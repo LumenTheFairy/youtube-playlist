@@ -43,7 +43,7 @@ tag_data.should_play = function(song) {
 };
 
 let add_tag_row = function(tag_name) {
-  const table = document.getElementById('tag-table');
+  const table = document.getElementById('inner-tag-table');
   const template = document.getElementById('tag-table-row-template');
   const row = template.cloneNode(true); //pass true to do a deep copy
   row.id = 'tag-row-' + tag_name;
@@ -74,7 +74,7 @@ let add_tag_row = function(tag_name) {
     }
   };
 
-  row.getElementsByTagName('td')[0].innerHTML = tag_name;
+  row.getElementsByTagName('label')[0].innerHTML = tag_name;
   for( input of row.getElementsByTagName('input') ) {
     input.name = "tag-option-" + tag_name;
     input.onclick = onclick;
@@ -87,11 +87,8 @@ let add_tag_row = function(tag_name) {
 };
 
 let clear_table = function() {
-  const table = document.getElementById('tag-table');
-  //TODO: supposedly there is a faster way to do this?
-  for(let i = table.rows.length - 1; i > 0; i--) {
-    table.deleteRow(i);
-  }
+  const table = document.getElementById('inner-tag-table');
+  table.innerHTML = ""
 }
 
 return function() {

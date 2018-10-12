@@ -101,88 +101,95 @@ button {
 	padding-right: 20px;
 }
 
-#tags-container {
+
+#tag-table {
 	font-size: 18px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.tag-table {
-	border-spacing: 0px;
+#tag-table label {
+	display: block;
+	text-align: center;
+	transition: .15s;
 }
 
-.tag-table th {
-	padding: 0px;
+#tag-table input[type="radio"] {
 	margin: 0px;
+	height: 100%;
+	height: 100%;
 }
 
-/* effectively hide the top row of the inner table*/
-#inner-tag-table th {
-	height: 0px;
+#tag-table label:first-child {
+	width: 130px;
+	padding-right: 10px;
 }
 
-.tag-table th:first-child {
-	width: 140px
-}
-
-.tag-table th:not(:first-child) {
+#tag-table label:not(:first-child) {
 	width: 70px
+}
+
+.tag-table-header {
+	display: flex;
+	width: 440px;
+	height: 26px;
+	font-weight: bold;
+}
+
+.tag-table-row {
+	display: flex;
+	height: 40px;
+}
+
+#inner-tag-table label:first-child {
+	text-align: right;
+	padding-top: 8px;
 }
 
 
 #inner-tag-table {
-	width: 480px;
+	width: 440px;
 	height: 160px;
 	overflow-y: scroll;
-	outline: 1px solid black;
+	outline: 2px solid black;
 	margin-bottom: 0px;
 	padding-bottom: 0px;
 }
 
-.tag-table-row {
-	height: 40px;
-}
-
-/* This matches the first column (with the tag name) in the table*/
-.tag-table td:first-child {
-	text-align: right;
-	padding-right: 10px;
-}
-
-/* This matches the other columns (with the radio buttons) */
-.tag-table td:not(:first-child) {
-	padding: 0px;
-	margin: 0px;
-	height: 100%;
-}
-
-.tag-table label {
-	margin: 0px;
-	height: 100%;
-	display: block;
-	text-align: center;
-}
-
-.tag-table input[type="radio"] {
-	margin: 0px;
-	height: 100%;
-}
 
 
 /* background colors for the different tag options*/
 .tag-table-require {
-	background: green;
+	background: #00AA00;
+}
+#inner-tag-table .tag-table-require:hover {
+	background: #22FF44;
 }
 
 .tag-table-exclude {
-	background: red;
+	background: #EE0000;
+}
+#inner-tag-table .tag-table-exclude:hover {
+	background: #FF7788;
 }
 
 .tag-table-include {
 	background: #80B0FF;
 }
+#inner-tag-table .tag-table-include:hover {
+	background: #A0F0FF;
+}
 
 .tag-table-ignore {
 	background: gold;
 }
+#inner-tag-table .tag-table-ignore:hover {
+	background: #FFFF80;
+}
+
+
 
 
 #debug-log {

@@ -20,8 +20,8 @@
     <div id="controls-container">
       <div id="playback-controls">
         <button type="button" id="play-pause">Pause</button>
-        <span><span>Volume:</span><input id="volume-slider" type="range" min="1" max="100" value="100"><span id="volume-number">100</span></span>
         <button type="button" id="next">Next</button>
+        <span><span>Volume:</span><input id="volume-slider" type="range" min="1" max="100" value="100"><span id="volume-number">100</span></span>
         <!-- <button type="button" id="reload-songs">Reload Playlist</button> -->
       </div>
 
@@ -36,28 +36,16 @@
         <label><input id='cb-hide-player' type='checkbox'>Hide Video Player</label>
       </div>
 
-      <div id="tags-container">
-        <div>
-          <table class="tag-table">
-            <tr>
-              <th>Tag</th>
-              <th class="tag-table-require">Require</th>
-              <th class="tag-table-exclude">Exclude</th>
-              <th class="tag-table-include">Include</th>
-              <th class="tag-table-ignore">Ignore</th>
-            </tr>
-          </table>
+      <div id="tag-table">
+        <div class="tag-table-header">
+          <label>Tag</label>
+          <label class="tag-table-require">Require</label>
+          <label class="tag-table-exclude">Exclude</label>
+          <label class="tag-table-include">Include</label>
+          <label class="tag-table-ignore" >Ignore</label>
         </div>
         <div id="inner-tag-table">
-          <table id="tag-table" class="tag-table">
-            <tr>
-              <th></th>
-              <th class="tag-table-require"></th>
-              <th class="tag-table-exclude"></th>
-              <th class="tag-table-include"></th>
-              <th class="tag-table-ignore"></th>
-            </tr>
-          </table>
+
         </div>
       </div>
     </div>
@@ -74,15 +62,13 @@
 </body>
 
 <div id="templates" style="display: none;">
-  <table>
-    <tr id="tag-table-row-template" class="tag-table-row">
-      <td></td>
-      <td><label class="tag-table-require"><input type="radio" value="require"/></label></td>
-      <td><label class="tag-table-exclude"><input type="radio" value="exclude"/></label></td>
-      <td><label class="tag-table-include"><input type="radio" value="include"/></label></td>
-      <td><label class="tag-table-ignore" ><input type="radio" value="ignore"/></label></td>
-    </tr>
-  </table>
+  <div id="tag-table-row-template" class="tag-table-row">
+    <label class="tag-name"></label>
+    <label class="tag-table-require"><input type="radio" value="require"/></label>
+    <label class="tag-table-exclude"><input type="radio" value="exclude"/></label>
+    <label class="tag-table-include"><input type="radio" value="include"/></label>
+    <label class="tag-table-ignore" ><input type="radio" value="ignore"/></label>
+  </div>
 </div>
 
 </html>
