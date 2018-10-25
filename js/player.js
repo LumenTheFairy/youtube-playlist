@@ -8,6 +8,7 @@ if(!yp.player) {
   player.song_order = "organized";
   player.skip_expected_fail = false;
   //player.player_hidden = false;
+  player.advanced_view = false;
 
   player.cur_song = 0;
   player.cur_alternative = 0;
@@ -24,7 +25,7 @@ else {
 }
 
 // const saved_option_names = ['shuffle', 'skip_expected_fail', 'player_hidden', 'volume_perc'];
-const saved_option_names = ['song_order', 'skip_expected_fail', 'volume_perc'];
+const saved_option_names = ['song_order', 'skip_expected_fail', 'volume_perc', 'advanced_view'];
 
 saved_option_names.forEach( function(option_name) {
   const option = localStorage.getItem(option_name);
