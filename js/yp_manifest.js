@@ -11,6 +11,7 @@ const manifest = [
 	
 	{name: 'songs', dependencies: [], type: 'script', url: 'data/songs.js' },
 	{name: 'read_song_data', dependencies: ['songs'], type: 'script', url: 'js/read_song_data.js' },
+	{name: 'song_order', dependencies: ['read_song_data'], type: 'script', url: 'js/song_order.js' },
 	{name: 'setup_tags', dependencies: [], type: 'script', url: 'js/setup_tags.js' },
 	{name: 'info_display', dependencies: [], type: 'script', url: 'js/info_display.js' },
 
@@ -25,7 +26,7 @@ const manifest = [
 	 process: function(events) { events(); }
 	},
 	{name: 'run_setup_tags',
-	 dependencies: ['setup_tags', 'read_song_data', 'dom'],
+	 dependencies: ['setup_tags', 'song_order', 'dom'],
 	 type: 'process',
 	 process: function(setup_tags) { setup_tags(); }
 	},

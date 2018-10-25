@@ -3,19 +3,41 @@ yp.scripts.read_song_data = function(songs) {
 //parse this into a more uniform form
 let song_data = [];
 let tags = new Set();
+let uuids = new Set();
+let uuid_to_index = {};
+let song_weights = [];
+let song_index = 0;
 songs.forEach( function(song) {
   let data = {};
+  data.index = song_index;
+  song_index++;
   data.info = {
     desc: song.desc,
     name: song.name,
     artist: song.artist,
     uuid: song.uuid,
     tags: new Set(song.tags),
+    weight: song.weight || 1,
   };
   //add the tags to the complete set of tags
   data.info.tags.forEach( function(tag) {
     tags.add(tag);
   });
+  //add the uuid
+  if(data.info.uuid) {
+    if(uuids.has(data.info.uuid)) {
+      console.warn("This song has a non-unique uuid:");
+      console.warn(song);
+    }
+    uuids.add(data.info.uuid);
+    uuid_to_index[data.info.uuid] = data.index;
+  }
+  else {
+    console.warn("This song is missing a uuid:");
+    console.warn(song);
+  }
+  //add the weights
+  song_weights.push(data.info.weight);
   //if the tag set is empty, give it a dummy tag so that it will still play in an all include filter
   if(data.info.tags.size == 0) {
     data.info.tags.add("No tags");
@@ -39,24 +61,9 @@ songs.forEach( function(song) {
   song_data.push(data);
 });
 
-//https://stackoverflow.com/questions/3746725/create-a-javascript-array-containing-1-n
-let basic_order = [...Array(song_data.length).keys()];
-let shuffled_order = basic_order.slice();
-//https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
-shuffled_order.shuffle_me = (function() {
-    let a = this;
-    let j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-});
-shuffled_order.shuffle_me();
-
 yp.song_data = song_data;
-yp.basic_order = basic_order;
-yp.shuffled_order = shuffled_order;
 yp.tags = tags;
+yp.uuids = uuids;
+yp.uuid_to_index = uuid_to_index;
+yp.song_weights = song_weights;
 };

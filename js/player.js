@@ -4,12 +4,12 @@ let player = {};
 //https://stackoverflow.com/questions/42271570/youtube-api-loop-video-between-set-start-and-end-times
 //helped too
 if(!yp.player) {
-  player.shuffle = false;
+  //player.shuffle = false;
+  player.song_order = "organized";
   player.skip_expected_fail = false;
-  player.player_hidden = false;
+  //player.player_hidden = false;
 
   player.cur_song = 0;
-  player.cur_song_index = -1;
   player.cur_alternative = 0;
   player.fail_timeout = 0;
 
@@ -23,14 +23,22 @@ else {
   player = yp.player;
 }
 
+// const saved_option_names = ['shuffle', 'skip_expected_fail', 'player_hidden', 'volume_perc'];
+const saved_option_names = ['song_order', 'skip_expected_fail', 'volume_perc'];
 
-['shuffle', 'skip_expected_fail', 'player_hidden', 'volume_perc'].forEach( function(option_name) {
+saved_option_names.forEach( function(option_name) {
   const option = localStorage.getItem(option_name);
   if(option) {
-    player[option_name] = JSON.parse(option);
+    try {
+      player[option_name] = JSON.parse(option);
+    }
+    catch(err) {
+      console.warn("localStorage: " + option_name + " could not be parsed as JSON.");
+      localStorage.setItem(option_name, JSON.stringify(player[option_name]));
+    }
   }
   else {
-    localStorage.setItem(option_name, player[option_name]);
+    localStorage.setItem(option_name, JSON.stringify(player[option_name]));
   }
 });
 
@@ -71,6 +79,10 @@ let _play = function() {
   });
   player.set_volume();
   player.fail_timeout = performance.now();
+  yp.song_order.add_to_song_queue(player.cur_song);
+  if(yp.comm) {
+    yp.comm.push_song();
+  }
 
   if(yp.info) {
     yp.info.set_info( get_cur_info() );
@@ -86,7 +98,8 @@ player.set_volume = function() {
 player.play_next = function() {
   //we don't assume this has been loaded
   const song_data = yp.song_data;
-  if(!song_data) {
+  const song_order = yp.song_order;
+  if(!song_data || !song_order) {
     document.getElementById("info").innerHTML = "Song Data Is Not Loaded";
     return;
   }
@@ -94,12 +107,7 @@ player.play_next = function() {
   let timeout = 0;
   while(timeout++ < 10000) {
     player.cur_alternative = 0;
-    player.cur_song_index++;
-    if(player.cur_song_index >= song_data.length) {
-      player.cur_song_index = 0;
-      yp.shuffled_order.shuffle_me();
-    };
-    player.cur_song = (player.shuffle ? yp.shuffled_order : yp.basic_order)[player.cur_song_index];
+    player.cur_song = song_order.get_next_song();
     if(yp.tag_data && !yp.tag_data.should_play(song_data[player.cur_song]) ) {
       continue;
     }

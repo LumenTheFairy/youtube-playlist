@@ -1,6 +1,9 @@
 yp.scripts.setup_tags = function() {
 
-const tag_data = {};
+const tag_data = {
+  filter_cache: new Set(),
+  filter_cache_is_valid: false,
+};
 yp.tag_data = tag_data;
 
 Set.prototype.every = function( condition ) {
@@ -42,6 +45,22 @@ tag_data.should_play = function(song) {
   return found_include_tag;
 };
 
+//return the list of indices of allowed songs
+tag_data.filtered_set = function() {
+  if(tag_data.filter_cache_is_valid) {
+    return tag_data.filter_cache;
+  }
+  else if(yp.song_data) {
+    tag_data.filter_cache = new Set(yp.song_data.filter(tag_data.should_play).map( (song) => song.index ));
+    tag_data.filter_cache_is_valid = true;
+    return tag_data.filter_cache;
+  }
+  else {
+    tag_data.filter_cache_is_valid = false;
+    return new Set();
+  }
+};
+
 let add_tag_row = function(tag_name) {
   const table = document.getElementById('inner-tag-table');
   const template = document.getElementById('tag-table-row-template');
@@ -68,7 +87,9 @@ let add_tag_row = function(tag_name) {
       tag_data[my_value].add(tag_name);
       tag_data[previous_value].delete(tag_name);
       //update previous
-      previous_value = my_value;
+      previous_value = my_value;      
+      //invalidate filtered list cache
+      tag_data.filter_cache_is_valid = false;
       //update localStorage
       localStorage.setItem(local_storage_id, my_value);
     }

@@ -55,6 +55,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	width: 100%;
 }
 #player-size {
 	min-width: 640px;
@@ -62,14 +63,23 @@ button {
 	margin-left: 1%;
 }
 
+#controls-container span,
+#controls-container label,
+#controls-container button {
+	margin-right: 30px;
+}
+
 #playback-controls {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 }
 
 #play-pause {
 	width: 90px;
+}
+
+span#volume-name {
+	margin-right: 0px;
 }
 
 #volume-number {
@@ -83,12 +93,23 @@ button {
 
 #bot-connection {
 	display: flex;
+	flex-direction: column;
+}
+
+#connection-controls {
+	display: flex;
 	align-items: center;
+}
+#connection-controls label {
+	display: flex;
+	font-size: 20px;
+}
+#connection-controls input {
+	margin-left: 4px;
 }
 
 #comm-button {
 	width: 140px;
-	margin-right: 20px;
 }
 
 #options {
@@ -97,8 +118,8 @@ button {
 	font-size: 18px;
 }
 
-#options>label {
-	padding-right: 20px;
+#song-order-select {
+	min-width: 110px;
 }
 
 
@@ -107,13 +128,13 @@ button {
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 }
 
 #tag-table label {
 	display: block;
 	text-align: center;
 	transition: .15s;
+	margin-right: 0px;
 }
 
 #tag-table input[type="radio"] {

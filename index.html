@@ -2,9 +2,10 @@
 <html>
 
 <head>
-  <title>YouTube Playlist</title>
+  <title>YouTube Playlist BETA</title>
   <meta charset='utf-8'/>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="/icons/eo.png">
   <script src="js/promise_loader.js"></script>
   <script src="js/yp_manifest.js"></script>
 </head>
@@ -17,23 +18,27 @@
   </div>
 
   <div id="page">
+
     <div id="controls-container">
+
       <div id="playback-controls">
         <button type="button" id="play-pause">Pause</button>
         <button type="button" id="next">Next</button>
-        <span><span>Volume:</span><input id="volume-slider" type="range" min="1" max="100" value="100"><span id="volume-number">100</span></span>
+        <span><span id="volume-name">Volume:</span><input id="volume-slider" type="range" min="1" max="100" value="100"><span id="volume-number">100</span></span>
         <!-- <button type="button" id="reload-songs">Reload Playlist</button> -->
       </div>
 
-      <div id="bot-connection">
-        <button type="button" id="comm-button">Connect</button>
-        <span id="comm-info">Not currently connected to bot.</span>
-      </div>
-
       <div id="options">
-        <label><input id='cb-shuffle' type='checkbox'>Shuffle Playlist</label>
+        <label> Song order:
+          <select id="song-order-select" autocomplete="off">
+            <option value="organized" selected>Organized</option>
+            <option value="shuffle">Shuffled</option>
+            <option value="random">Random</option>
+            <option value="weighted">Weighted</option>
+        </select></label>
+<!--         <label><input id='cb-shuffle' type='checkbox'>Shuffle Playlist</label> -->
         <label><input id='cb-skip-fail' type='checkbox'>Skip Expected Embed Failures</label>
-        <label><input id='cb-hide-player' type='checkbox'>Hide Video Player</label>
+<!--         <label><input id='cb-hide-player' type='checkbox'>Hide Video Player</label> -->
       </div>
 
       <div id="tag-table">
@@ -48,6 +53,16 @@
 
         </div>
       </div>
+
+      <div id="bot-connection">
+        <div id="connection-controls">
+          <button type="button" id="comm-button">Connect</button>
+          <label>Host:<input id="bot-host" value="localhost"></input></label>
+          <label>Port:<input id="bot-port" value="50000"></input></label>
+        </div>
+        <span id="comm-info">Not currently connected to bot.</span>
+      </div>
+
     </div>
 
     <div id="player-size">

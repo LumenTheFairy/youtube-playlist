@@ -1,18 +1,31 @@
 yp.scripts.communication = function() {
 
-const host = 'localhost';
-const port = 55501;
-
 if(yp.comm && yp.comm.websocket) {
 	yp.comm.websocket.close();
 }
 
-const comm = {};
+const comm = {
+	server_hostname: 'localhost',
+	server_port: 50000,
+};
 yp.comm = comm;
 
 comm.websocket = null;
-
 let close_expected = false;
+
+const saved_option_names = ['server_hostname', 'server_port'];
+
+saved_option_names.forEach( function(option_name) {
+  const option = localStorage.getItem(option_name);
+  if(option) {
+    try {
+      comm[option_name] = JSON.parse(option);
+    }
+    catch(err) {
+      console.warn("localStorage: " + option_name + " could not be parsed as JSON.");
+    }
+  }
+});
 
 let set_button = function(info, disabled) {
 	document.getElementById("comm-button").innerHTML = info;
@@ -30,12 +43,12 @@ let handle_request = function(request) {
 	let response = { type: 'response', rid: request.rid }
 	let data = {}
 	if(request.data.f === "song") {
-		data = yp.player.get_cur_info();
+		Object.assign(data, yp.player.get_cur_info());
 		data.tags = Array.from(data.tags);
 		let alternative = yp.player.get_cur_alternative();
 		data.url = alternative.id;
 	}
-	response.data = data
+	response.data = data;
 	comm.websocket.send(JSON.stringify(response));
 	//console.log("sent: " + JSON.stringify(response))
 };
@@ -67,6 +80,7 @@ let handle_send = function(message) {
 let onopen = function(event) {
 	set_info("Connected!");
 	set_button("Disconnect", false);
+	comm.push_song();
 };
 let onerror = function(event) {
 	//console.log(event);
@@ -98,6 +112,13 @@ let onclose = function (event) {
 };
 
 comm.connect = function() {
+	const host = document.getElementById("bot-host").value;
+	const port = document.getElementById("bot-port").value;
+	localStorage.setItem('server_hostname', JSON.stringify(host));
+	localStorage.setItem('server_port', JSON.stringify(port));
+	comm.server_hostname = host;
+	comm.server_port = port;
+
 	comm.websocket = new WebSocket("ws://" + host + ":" + port);
 	comm.websocket.onopen = onopen;
 	comm.websocket.onerror = onerror;
@@ -122,6 +143,24 @@ comm.onbutton = function() {
 	}
 	else if(comm.websocket && comm.websocket.readyState === WebSocket.OPEN) {
 		comm.disconnect();
+	}
+};
+
+comm.push_song = function() {
+	if(comm.websocket && comm.websocket.readyState === WebSocket.OPEN) {
+		let request = { type: 'give' }
+		let data = { f: 'song' }
+		let song_data = {}
+
+		Object.assign(song_data, yp.player.get_cur_info());
+		song_data.tags = Array.from(song_data.tags);
+		let alternative = yp.player.get_cur_alternative();
+		song_data.url = alternative.id;
+
+		data.song_data = song_data;
+		request.data = data;
+
+		comm.websocket.send(JSON.stringify(request));
 	}
 };
 
