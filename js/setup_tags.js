@@ -61,11 +61,19 @@ tag_data.filtered_set = function() {
   }
 };
 
+const tag_order = ['Anime', 'Vocaloid', 'J-Pop', 'Visual Novel', 'Rhythm Game', 'Other', 'Character Song', 'Remix', 'Long', 'Disable', 'Muted'];
+
 let add_tag_row = function(tag_name) {
   const table = document.getElementById('inner-tag-table');
   const template = document.getElementById('tag-table-row-template');
   const row = template.cloneNode(true); //pass true to do a deep copy
   row.id = 'tag-row-' + tag_name;
+
+  let order_val = tag_order.indexOf(tag_name);
+  if(order_val == -1) {
+    order_val = tag_order.length;
+  }
+  row.style.order = order_val;
 
   const local_storage_id = "tag-" + tag_name;
   let saved_value = localStorage.getItem(local_storage_id);

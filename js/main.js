@@ -50,7 +50,7 @@ let main = function() {
     document.getElementById("time").innerHTML = curTime + " / " + fullTime;
     //check if a video has failed
     if(player.p.getPlayerState() === -1) {
-      if(performance.now() - player.fail_timeout > 2000) {
+      if(performance.now() - player.fail_timeout > 8000) {
         if(yp.info) {
           yp.info.debug("Failed to load: " + JSON.stringify(yp.info.cur_info));
         }
