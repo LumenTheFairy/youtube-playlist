@@ -104,7 +104,7 @@ let add_tag_row = function(tag_name) {
   };
 
   row.getElementsByTagName('label')[0].innerHTML = tag_name;
-  for( input of row.getElementsByTagName('input') ) {
+  for( let input of Array.from(row.getElementsByTagName('input')) ) {
     input.name = "tag-option-" + tag_name;
     input.onclick = onclick;
     if(saved_value === input.value) {
