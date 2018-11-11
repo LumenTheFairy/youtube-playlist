@@ -61,7 +61,7 @@ tag_data.filtered_set = function() {
   }
 };
 
-const tag_order = ['Anime', 'Vocaloid', 'J-Pop', 'Visual Novel', 'Rhythm Game', 'Other', 'Character Song', 'Remix', 'Long', 'Disable', 'Muted'];
+const tag_order = ['Anime', 'Video Game', 'Vocaloid', 'J-Pop', 'Visual Novel', 'Rhythm Game', 'Other', 'Character Song', 'Remix', 'Long', 'Disable', 'Muted'];
 
 let add_tag_row = function(tag_name) {
   const table = document.getElementById('inner-tag-table');

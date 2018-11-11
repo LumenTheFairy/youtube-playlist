@@ -7,7 +7,7 @@ yp.scripts = {};
 
 //create the list of things to load, and processes to run
 const manifest = [
-	{name: 'player_api', dependencies: [], type: 'external_script', url: 'http://www.youtube.com/player_api' },
+	{name: 'player_api', dependencies: [], type: 'external_script', url: 'https://www.youtube.com/player_api' },
 	
 	{name: 'songs', dependencies: [], type: 'script', url: 'data/songs.js' },
 	{name: 'read_song_data', dependencies: ['songs'], type: 'script', url: 'js/read_song_data.js' },

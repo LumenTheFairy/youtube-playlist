@@ -5,7 +5,7 @@ let player = {};
 //helped too
 if(!yp.player) {
   //player.shuffle = false;
-  player.song_order = "organized";
+  player.song_order = "shuffle";
   player.skip_expected_fail = false;
   //player.player_hidden = false;
   player.advanced_view = false;
