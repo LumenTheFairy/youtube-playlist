@@ -1,4 +1,4 @@
-#YouTube Playlist
+# YouTube Playlist
 
 This is a simple webpage that automatically plays YouTube videos from a pre-made list of anime and video game music songs.
 
