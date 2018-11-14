@@ -6,7 +6,8 @@ return [
 
 /*
 TO ADD:
-Kanokon ed
+https://www.youtube.com/watch?v=C3w6qXm4800
+https://www.youtube.com/watch?v=vm_mQmjyvts
 */
 
   // { desc: "Placeholder",
