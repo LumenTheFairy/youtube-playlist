@@ -3,8 +3,12 @@ yp.scripts.setup_tags = function() {
 const tag_data = {
   filter_cache: new Set(),
   filter_cache_is_valid: false,
+  liked: new Set(),
+  disabled: new Set(),
 };
 yp.tag_data = tag_data;
+
+
 
 Set.prototype.every = function( condition ) {
   for( let v of this ) {
@@ -61,7 +65,12 @@ tag_data.filtered_set = function() {
   }
 };
 
-const tag_order = ['Anime', 'Video Game', 'Vocaloid', 'J-Pop', 'Visual Novel', 'Rhythm Game', 'Other', 'Character Song', 'Remix', 'Long', 'Disable', 'Muted'];
+const tag_order = ['Anime', 'Video Game', 'Vocaloid', 'J-Pop', 'Visual Novel', 'Rhythm Game', 'Other', 'Character Song', 'Remix', 'Long', 'Muted'];
+//maps data property name to displayed tag name
+const custom_tags = {
+  liked: 'Liked',
+  disabled: 'Disabled',
+};
 
 let add_tag_row = function(tag_name) {
   const table = document.getElementById('inner-tag-table');
@@ -117,15 +126,95 @@ let add_tag_row = function(tag_name) {
 
 let clear_table = function() {
   const table = document.getElementById('inner-tag-table');
-  table.innerHTML = ""
+  table.innerHTML = "";
 }
 
+//handler for a tag preference checkbox
+tag_data.tag_preference_checkbox = function(prop_name) {
+  const tag_name = custom_tags[prop_name];
+  return function() {
+    if(!yp.player) {
+      return;
+    }
+    //get the currently playing song
+    const song_index = yp.player.cur_song;
+    if(song_index >= 0) {
+      const uuid = yp.song_data[song_index].info.uuid;
+      //add or remove the song from the set having this custom tag
+      if(this.checked) {
+        tag_data[prop_name].add(uuid);
+        yp.song_data[song_index].info.tags.add(tag_name);
+      }
+      else {
+        tag_data[prop_name].delete(uuid);
+        yp.song_data[song_index].info.tags.delete(tag_name);
+      }
+      localStorage.setItem( prop_name, JSON.stringify(Array.from(tag_data[prop_name])) );
+    }
+  };
+};
+
+tag_data.reset_tag_preferences = function() {
+  for(let prop_name in custom_tags) {
+    const tag_name = custom_tags[prop_name];
+    //remove the tags from each song that has them
+    tag_data[prop_name].forEach( (uuid) => yp.song_data[ yp.uuid_to_index[uuid] ].info.tags.delete(tag_name) );
+    //remove the preferences from storage
+    tag_data[prop_name] = new Set();
+    localStorage.setItem( prop_name, JSON.stringify([]) );
+  }
+  tag_data.filter_cache_is_valid = false;
+};
+
+tag_data.reset_set_tags = function() {
+  //clear the tag options
+  // tag_data.require = new Set();
+  // tag_data.exclude = new Set();
+  // tag_data.include = new Set();
+  // tag_data.ignore  = new Set();
+  //set all tag options to include
+  yp.tags.forEach( function(tag_name) {
+    //reset internal set
+    //tag_data.include.add(tag_name);
+    //reset local storage
+    // const local_storage_id = "tag-" + tag_name;
+    // localStorage.setItem(local_storage_id, "include");
+    //reset radio button
+    const row = document.getElementById('tag-row-' + tag_name);
+    for( let input of Array.from(row.getElementsByTagName('input')) ) {
+      if("include" === input.value) {
+        input.click();
+      }
+    }
+  });
+  tag_data.filter_cache_is_valid = false;
+};
+
 return function() {
+  //read in liked and disabled sets
+  for(let prop_name in custom_tags) {
+    //pull from localStorage
+    const stored_prop = localStorage.getItem(prop_name);
+    if(stored_prop) {
+      tag_data[prop_name] = new Set( JSON.parse(stored_prop) );
+    }
+    else {
+      localStorage.setItem( prop_name, JSON.stringify([]) );
+    }
+    //add tags to the songs that have them
+    const tag_name = custom_tags[prop_name];
+    tag_data[prop_name].forEach( (uuid) => yp.song_data[ yp.uuid_to_index[uuid] ].info.tags.add(tag_name) );
+  }
+
   clear_table();
+  //clear the tag options
   tag_data.require = new Set();
   tag_data.exclude = new Set();
   tag_data.include = new Set();
   tag_data.ignore  = new Set();
+  //add in the custom tags
+  Object.keys(custom_tags).forEach( (prop_name) => yp.tags.add(custom_tags[prop_name]) );
+  //build the table, set the options to saved values
   yp.tags.forEach( add_tag_row );
 };
 

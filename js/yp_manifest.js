@@ -21,7 +21,7 @@ const manifest = [
 	{name: 'main', dependencies: ['player'], type: 'script', url: 'js/main.js' },
 
 	{name: 'attach_handlers',
-	 dependencies: ['events', 'dom'],
+	 dependencies: ['events', 'setup_tags', 'dom'],
 	 type: 'process',
 	 process: function(events) { events(); }
 	},

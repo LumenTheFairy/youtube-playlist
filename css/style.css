@@ -237,13 +237,17 @@ span#volume-number {
 
 #inner-tag-table {
 	width: 440px;
-	height: 160px;
+	height: 240px;
 	overflow-y: scroll;
 	outline: 2px solid black;
 	margin-bottom: 0px;
 	padding-bottom: 0px;
 	display: flex;
 	flex-direction: column;
+}
+
+.advanced #inner-tag-table {
+	height: 120px;
 }
 
 
@@ -277,6 +281,17 @@ span#volume-number {
 	background: #FFFF80;
 }
 
+
+#tag-controls {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	font-size: 18px;
+}
+
+#tag-controls button {
+	font-size: 17px;
+}
 
 
 

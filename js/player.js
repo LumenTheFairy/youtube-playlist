@@ -85,6 +85,10 @@ let _play = function() {
     yp.comm.push_song();
   }
 
+  //update the like/disable checkboxes
+  document.getElementById("cb-like").checked = yp.tag_data.liked.has(get_cur_info().uuid);
+  document.getElementById("cb-disable").checked = yp.tag_data.disabled.has(get_cur_info().uuid);
+
   if(yp.info) {
     yp.info.set_info( get_cur_info() );
     yp.info.display_info();
