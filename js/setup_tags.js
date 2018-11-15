@@ -167,18 +167,8 @@ tag_data.reset_tag_preferences = function() {
 };
 
 tag_data.reset_set_tags = function() {
-  //clear the tag options
-  // tag_data.require = new Set();
-  // tag_data.exclude = new Set();
-  // tag_data.include = new Set();
-  // tag_data.ignore  = new Set();
   //set all tag options to include
   yp.tags.forEach( function(tag_name) {
-    //reset internal set
-    //tag_data.include.add(tag_name);
-    //reset local storage
-    // const local_storage_id = "tag-" + tag_name;
-    // localStorage.setItem(local_storage_id, "include");
     //reset radio button
     const row = document.getElementById('tag-row-' + tag_name);
     for( let input of Array.from(row.getElementsByTagName('input')) ) {
