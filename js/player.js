@@ -119,7 +119,7 @@ player.play_next = function() {
     const alternatives = song_data[player.cur_song].alternatives;
     while(player.cur_alternative < alternatives.length) {
       const song = alternatives[player.cur_alternative];
-      if(player.skip_expected_fail && song.expected_fail) {
+      if((player.skip_expected_fail && song.expected_fail) || song.removed) {
         player.cur_alternative++;
         continue;
       }

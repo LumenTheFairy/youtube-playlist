@@ -50,6 +50,7 @@ songs.forEach( function(song) {
       end: obj.end,
       volume: obj.volume,
       expected_fail: obj.expected_fail,
+      removed: obj.removed,
     };
   };
   if(song.alternatives) {
