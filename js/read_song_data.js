@@ -18,6 +18,8 @@ songs.forEach( function(song) {
     uuid: song.uuid,
     tags: new Set(song.tags),
     weight: song.weight || 1,
+    removed: song.removed || false,
+    muted: (new Set(song.tags)).has('Muted'),
   };
   //add the tags to the complete set of tags
   data.info.tags.forEach( function(tag) {
@@ -50,7 +52,6 @@ songs.forEach( function(song) {
       end: obj.end,
       volume: obj.volume,
       expected_fail: obj.expected_fail,
-      removed: obj.removed,
     };
   };
   if(song.alternatives) {

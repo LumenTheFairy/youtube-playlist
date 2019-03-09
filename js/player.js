@@ -117,9 +117,10 @@ player.play_next = function() {
       continue;
     }
     const alternatives = song_data[player.cur_song].alternatives;
+    const info = song_data[player.cur_song].info;
     while(player.cur_alternative < alternatives.length) {
       const song = alternatives[player.cur_alternative];
-      if((player.skip_expected_fail && song.expected_fail) || song.removed) {
+      if((player.skip_expected_fail && song.expected_fail) || info.removed) {
         player.cur_alternative++;
         continue;
       }
