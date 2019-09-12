@@ -2,6 +2,22 @@
 yp.scripts.songs = function() {
 
 //playlist
+/*
+missing:
+alice or alice ed
+https://www.youtube.com/watch?v=IwoNC9ONcrA
+one room 2 ed1
+https://www.youtube.com/watch?v=2WHdS4B5Y1E
+
+KAORU!!!
+https://www.youtube.com/watch?v=W5B1Gt8yRfE
+
+papayapa bass
+https://www.youtube.com/watch?v=Dmck9pO6Jco
+grimms notes
+https://www.youtube.com/watch?v=SGz5czMi8qA  Wasureji no Kotonoha
+https://www.youtube.com/watch?v=nkZSCsm8hkM  red riding hood probs
+*/
 return [
 
   // { desc: "Placeholder",
@@ -86,6 +102,15 @@ return [
     start: 3,
     volume: 70,
   },
+  { desc: "Grimms Notes OST",
+    name: "Wasureji no Kotonoha",
+    artist: "Dazbee",
+    tags: ['Video Game'],
+    id: 'SGz5czMi8qA',
+    uuid: '4a38db4764054bb8adda2c830f740931',
+    start: 4,
+    volume: 80,
+  },
 
   { name: "Romancing Saga - Battle 2 (Hito-Ookami Eurobeat Remix)",
     artist: "Kenji Ito ft. Hito-Ookami",
@@ -95,7 +120,7 @@ return [
     volume: 90,
   },
 
-  { desc: "Kirby 64: The Crystal Shards [6-2]",
+  { desc: "Kirby 64: The Crystal Shards OST [6-2]",
     artist: "Jun Ishikawa",
     tags: ['Video Game'],
     id: 'CBvUH48bY_I',
@@ -452,6 +477,14 @@ return [
     uuid: '5b3cae278dfd4394a98679aa92676aae',
     start: 1,
   },
+  { desc: "ごーいん! [Track 10]",
+    name: 'PAPAYAPA BASS ("BASSE DE NANA" Long ver.)',
+    artist: "Camellia ft. Nanahira",
+    tags: ['J-Pop'],
+    id: 'Dmck9pO6Jco',
+    uuid: 'bb0b6bebb30c4f5f8f92882c41fea848',
+    end: (4*60 + 59),
+  },
   { desc: "Lop Step Rabbits [Track 5]",
     name: "Soroban♡De♥Big Bang",
     artist: "Camellia ft. Nanahira & Koko",
@@ -792,10 +825,9 @@ return [
     name: "Nee, Issho ni Kaerou",
     artist: "Chisaki Morishita",
     tags: ['Anime'],
-    id: 'c82B-8VNKL8',
+    id: 'uTLDXSo1GIQ',
     uuid: 'de760202305b42d9b4dd46aa8027901d',
-    start: 1,
-    end: (3*60 + 37),
+    end: (3*60 + 36),
   },
   { desc: "We Never Learn: BOKUBEN OP",
     name: "Seishun Seminar",
@@ -923,9 +955,10 @@ return [
     name: "LONELY ALICE",
     artist: "Pyxis",
     tags: ['Anime'],
-    id: 'vAvcFZNTDQ0',
+    id: 'IwoNC9ONcrA',
     uuid: '39b6ff7eb24e4d8eb0d14972afa5451d',
     end: (4*60 + 59),
+    expected_fail: true,
   },
   { desc: "The Quintessential Quintuplets ED",
     name: "Sign",
@@ -1106,6 +1139,15 @@ return [
     uuid: 'a7a1fa8b30d6499499412001757e7149',
     expected_fail: true,
     end: (3*60 + 8),
+  },
+  { desc: "Grimms Notes the Animation ED1",
+    name: "Eiyuu no Shihen",
+    artist: "Dazbee",
+    tags: ['Anime'],
+    id: 'nkZSCsm8hkM',
+    uuid: '48e8ea735cad4fb39c6ae85b4bf0196a',
+    expected_fail: true,
+    volume: 80,
   },
   { desc: "Last Period OP",
     name: "Yokubari Dreamer",
@@ -1608,9 +1650,9 @@ return [
     name: "Aozora Morning Glory",
     artist: "M・A・O",
     tags: ['Anime'],
-    id: 'N7L1o-AdrTs',
+    id: '2WHdS4B5Y1E',
     uuid: 'e9b5f3e4ed014c6381c9e372899211fa',
-    volume: 90,
+    end: (3*60 + 56),
   },
   { desc: "Senryū Shōjo ED",
     name: "ORDINARY LOVE",
@@ -2238,11 +2280,10 @@ return [
   { desc: "Toji no Miko Character Song - Kaoru Mashiko",
     name: "えぶりでい・ほりでい",
     artist: "Risae Matsuda",
-    id: 'bbcsVVI_M0M',
+    id: 'W5B1Gt8yRfE',
     uuid: 'd80b9e23480e4cec90e6bb4ba20bac5f',
     tags: ['Anime', 'Character Song'],
-    end: (3*60 + 38),
-    removed: true,
+    end: (3*60 + 39),
   },
   { desc: "CANAAN OP",
     name: "mind as Judgment",
