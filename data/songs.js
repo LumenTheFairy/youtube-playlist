@@ -605,7 +605,7 @@ return [
   { desc: "MEGANEDENE! [Track 1]",
     name: "めがねでねっ!",
     artist: "MOSAIC.WAV",
-    tags: ['Anime'],
+    tags: ['J-Pop'],
     id: 'uRIVVBMHzv8',
     uuid: '69e2f38a0191467bbf7e6b82fc02f6a9',
     end: (4*60 + 14),
