@@ -89,6 +89,8 @@ let _play = function() {
   document.getElementById("cb-like").checked = yp.tag_data.liked.has(get_cur_info().uuid);
   document.getElementById("cb-disable").checked = yp.tag_data.disabled.has(get_cur_info().uuid);
 
+  document.getElementById("cb-repeat").checked = false;
+
   if(yp.info) {
     yp.info.set_info( get_cur_info() );
     yp.info.display_info();
@@ -176,6 +178,17 @@ window.onPlayerReady = function(event) {
     player.ready = true;
 };
 
+player.on_song_end = function() {
+  let repeat_cb = document.getElementById("cb-repeat");
+  if(repeat_cb.checked) {
+    player.p.seekTo(get_cur_alternative().start);
+    repeat_cb.checked = false;
+  }
+  else {
+    player.play_next();
+  }
+};
+
 let prev_end = 0;
 // when video ends
 window.onPlayerStateChange = function(event) {
@@ -185,7 +198,7 @@ window.onPlayerStateChange = function(event) {
     //hilariously horrible hack to get around 'endSeconds' video ends causing the next vid to end instantly since it changes to ENDED twice
     if(t - prev_end > 6000) {
       prev_end = t;
-      player.play_next();
+      player.on_song_end();
     }
   }
   else if(event.data === YT.PlayerState.PLAYING) {
