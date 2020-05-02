@@ -1,4 +1,4 @@
-yp.scripts.song_order = function(songs) {
+yp.scripts.song_order = function() {
 
 const song_order = {};
 if(!yp.song_order) {
