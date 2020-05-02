@@ -85,7 +85,7 @@ let add_tag_row = function(tag_name) {
   row.style.order = order_val;
 
   const local_storage_id = "tag-" + tag_name;
-  let saved_value = localStorage.getItem(local_storage_id);
+  let saved_value = namedstore.getItem(local_storage_id);
 
   let previous_value = "include";
   if(saved_value) {
@@ -93,7 +93,7 @@ let add_tag_row = function(tag_name) {
   }
   else {
     saved_value = previous_value;
-    localStorage.setItem(local_storage_id, "include");
+    namedstore.setItem(local_storage_id, "include");
   }
   tag_data[previous_value].add(tag_name);
   let onclick = function() {
@@ -104,11 +104,11 @@ let add_tag_row = function(tag_name) {
       tag_data[my_value].add(tag_name);
       tag_data[previous_value].delete(tag_name);
       //update previous
-      previous_value = my_value;      
+      previous_value = my_value;
       //invalidate filtered list cache
       tag_data.filter_cache_is_valid = false;
-      //update localStorage
-      localStorage.setItem(local_storage_id, my_value);
+      //update namedstore
+      namedstore.setItem(local_storage_id, my_value);
     }
   };
 
@@ -149,7 +149,7 @@ tag_data.tag_preference_checkbox = function(prop_name) {
         tag_data[prop_name].delete(uuid);
         yp.song_data[song_index].info.tags.delete(tag_name);
       }
-      localStorage.setItem( prop_name, JSON.stringify(Array.from(tag_data[prop_name])) );
+      namedstore.setItem( prop_name, JSON.stringify(Array.from(tag_data[prop_name])) );
     }
   };
 };
@@ -161,7 +161,7 @@ tag_data.reset_tag_preferences = function() {
     tag_data[prop_name].forEach( (uuid) => yp.song_data[ yp.uuid_to_index[uuid] ].info.tags.delete(tag_name) );
     //remove the preferences from storage
     tag_data[prop_name] = new Set();
-    localStorage.setItem( prop_name, JSON.stringify([]) );
+    namedstore.setItem( prop_name, JSON.stringify([]) );
   }
   tag_data.filter_cache_is_valid = false;
 };
@@ -183,13 +183,13 @@ tag_data.reset_set_tags = function() {
 return function() {
   //read in liked and disabled sets
   for(let prop_name in custom_tags) {
-    //pull from localStorage
-    const stored_prop = localStorage.getItem(prop_name);
+    //pull from namedstore
+    const stored_prop = namedstore.getItem(prop_name);
     if(stored_prop) {
       tag_data[prop_name] = new Set( JSON.parse(stored_prop) );
     }
     else {
-      localStorage.setItem( prop_name, JSON.stringify([]) );
+      namedstore.setItem( prop_name, JSON.stringify([]) );
     }
     //add tags to the songs that have them
     const tag_name = custom_tags[prop_name];

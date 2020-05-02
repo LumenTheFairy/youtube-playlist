@@ -28,18 +28,18 @@ else {
 const saved_option_names = ['song_order', 'skip_expected_fail', 'volume_perc', 'advanced_view'];
 
 saved_option_names.forEach( function(option_name) {
-  const option = localStorage.getItem(option_name);
+  const option = namedstore.getItem(option_name);
   if(option) {
     try {
       player[option_name] = JSON.parse(option);
     }
     catch(err) {
-      console.warn("localStorage: " + option_name + " could not be parsed as JSON.");
-      localStorage.setItem(option_name, JSON.stringify(player[option_name]));
+      console.warn("namedstore: " + option_name + " could not be parsed as JSON.");
+      namedstore.setItem(option_name, JSON.stringify(player[option_name]));
     }
   }
   else {
-    localStorage.setItem(option_name, JSON.stringify(player[option_name]));
+    namedstore.setItem(option_name, JSON.stringify(player[option_name]));
   }
 });
 

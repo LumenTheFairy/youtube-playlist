@@ -8,16 +8,23 @@ yp.scripts = {};
 //create the list of things to load, and processes to run
 const manifest = [
 	{name: 'player_api', dependencies: [], type: 'external_script', url: 'https://www.youtube.com/player_api' },
-	
+
+	{name: 'namedstore', dependencies: [], type: 'script', url: 'js/namedstore.js' },
+	{name: 'start_store',
+	 dependencies: ['namedstore'],
+	 type: 'process',
+	 process: function() { namedstore.setName('yp'); }
+	},
+
 	{name: 'songs', dependencies: [], type: 'script', url: 'data/songs.js' },
 	{name: 'read_song_data', dependencies: ['songs'], type: 'script', url: 'js/read_song_data.js' },
-	{name: 'song_order', dependencies: ['read_song_data'], type: 'script', url: 'js/song_order.js' },
-	{name: 'setup_tags', dependencies: [], type: 'script', url: 'js/setup_tags.js' },
+	{name: 'song_order', dependencies: ['start_store', 'read_song_data'], type: 'script', url: 'js/song_order.js' },
+	{name: 'setup_tags', dependencies: ['start_store'], type: 'script', url: 'js/setup_tags.js' },
 	{name: 'info_display', dependencies: [], type: 'script', url: 'js/info_display.js' },
 
-	{name: 'player', dependencies: ['player_api'], type: 'script', url: 'js/player.js' },
-	{name: 'communication', dependencies: ['player'], type: 'script', url: 'js/communication.js' },
-	{name: 'events', dependencies: ['player', 'communication'], type: 'script', url: 'js/events.js' },
+	{name: 'player', dependencies: ['start_store', 'player_api'], type: 'script', url: 'js/player.js' },
+	{name: 'communication', dependencies: ['start_store', 'player'], type: 'script', url: 'js/communication.js' },
+	{name: 'events', dependencies: ['start_store', 'player', 'communication'], type: 'script', url: 'js/events.js' },
 	{name: 'main', dependencies: ['player'], type: 'script', url: 'js/main.js' },
 
 	{name: 'attach_handlers',

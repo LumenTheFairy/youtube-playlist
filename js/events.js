@@ -19,7 +19,7 @@ let show_advanced_view_effect = function() {
 
 let toggle_advanced = function() {
   player.advanced_view = !player.advanced_view;
-  localStorage.setItem('advanced_view', JSON.stringify(player.advanced_view));
+  namedstore.setItem('advanced_view', JSON.stringify(player.advanced_view));
   show_advanced_view_effect();
 }
 
@@ -44,22 +44,22 @@ let volume_handle = function() {
   number_elem.innerHTML = volume;
   player.volume_perc = volume;
   player.set_volume();
-  localStorage.setItem('volume_perc', JSON.stringify(player.volume_perc));
+  namedstore.setItem('volume_perc', JSON.stringify(player.volume_perc));
 };
 
 let song_order_handle = function(sel) {
   player.song_order = sel.value;
-  localStorage.setItem('song_order', JSON.stringify(sel.value));
+  namedstore.setItem('song_order', JSON.stringify(sel.value));
 };
 
 let skip_expected_fails_handle = function(cb) {
   player.skip_expected_fail = cb.checked;
-  localStorage.setItem('skip_expected_fail', JSON.stringify(cb.checked));
+  namedstore.setItem('skip_expected_fail', JSON.stringify(cb.checked));
 };
 
 
 let clear_local_storage = function() {
-  localStorage.clear();
+  namedstore.clear();
 };
 
 //attach handlers

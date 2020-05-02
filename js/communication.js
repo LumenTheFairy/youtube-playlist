@@ -16,13 +16,13 @@ let close_expected = false;
 const saved_option_names = ['server_hostname', 'server_port'];
 
 saved_option_names.forEach( function(option_name) {
-  const option = localStorage.getItem(option_name);
+  const option = namedstore.getItem(option_name);
   if(option) {
     try {
       comm[option_name] = JSON.parse(option);
     }
     catch(err) {
-      console.warn("localStorage: " + option_name + " could not be parsed as JSON.");
+      console.warn("namedstore: " + option_name + " could not be parsed as JSON.");
     }
   }
 });
@@ -114,8 +114,8 @@ let onclose = function (event) {
 comm.connect = function() {
 	const host = document.getElementById("bot-host").value;
 	const port = document.getElementById("bot-port").value;
-	localStorage.setItem('server_hostname', JSON.stringify(host));
-	localStorage.setItem('server_port', JSON.stringify(port));
+	namedstore.setItem('server_hostname', JSON.stringify(host));
+	namedstore.setItem('server_port', JSON.stringify(port));
 	comm.server_hostname = host;
 	comm.server_port = port;
 

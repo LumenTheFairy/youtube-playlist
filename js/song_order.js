@@ -14,10 +14,10 @@ song_order.max_queue_length = 100;
 song_order.queue_limit_percent = 0.4;
 
 //load the song queue if it exists
-const queue_string = localStorage.getItem('recent_queue');
+const queue_string = namedstore.getItem('recent_queue');
 if(queue_string) {
     try {
-        song_order.recent_song_queue = JSON.parse(localStorage.getItem('recent_queue'));
+        song_order.recent_song_queue = JSON.parse(namedstore.getItem('recent_queue'));
     }
     catch(err) {
         song_order.recent_song_queue = []
@@ -33,7 +33,7 @@ song_order.add_to_song_queue = function(song_index) {
     if(song_order.recent_song_queue.length > song_order.max_queue_length) {
         song_order.recent_song_queue.pop();
     }
-    localStorage.setItem('recent_queue', JSON.stringify(song_order.recent_song_queue));
+    namedstore.setItem('recent_queue', JSON.stringify(song_order.recent_song_queue));
 };
 
 
