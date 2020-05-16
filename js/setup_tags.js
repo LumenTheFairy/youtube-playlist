@@ -65,7 +65,7 @@ tag_data.filtered_set = function() {
   }
 };
 
-const tag_order = ['Anime', 'Video Game', 'Vocaloid', 'J-Pop', 'Chiptune', 'Visual Novel', 'Rhythm Game', 'Other', 'Character Song', 'Remix', 'Long', 'Muted'];
+const tag_order = ['Anime', 'Video Game', 'Idol', 'Vocaloid', 'J-Pop', 'Chiptune', 'Visual Novel', 'Rhythm Game', 'Other', 'Character Song', 'Remix', 'Long', 'Muted'];
 //maps data property name to displayed tag name
 const custom_tags = {
   liked: 'Liked',
