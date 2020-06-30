@@ -44,19 +44,6 @@ saved_option_names.forEach( function(option_name) {
 });
 
 
-let get_cur_info = function() {
-  let default_info = {
-    desc: "Song Data Missing"
-  };
-  //we don't assume this has been loaded
-  const song_data = yp.song_data;
-  if(song_data && song_data[player.cur_song]) {
-    return song_data[player.cur_song].info;
-  }
-  return default_info;
-};
-player.get_cur_info = get_cur_info;
-
 let get_cur_alternative = function() {
   let default_alt = {
     id: '' //this will cause a load fail
@@ -69,6 +56,29 @@ let get_cur_alternative = function() {
   return default_alt;
 };
 player.get_cur_alternative = get_cur_alternative;
+
+let get_cur_info = function() {
+  let default_info = {
+    desc: "Song Data Missing"
+  };
+  //we don't assume this has been loaded
+  const song_data = yp.song_data;
+  const cur_song_data = song_data[player.cur_song];
+  if(song_data && cur_song_data) {
+    const info = {};
+    Object.assign(info, cur_song_data.info);
+    const cur_alternative = get_cur_alternative();
+    let overwrite_info = function(field_name) {
+      info[field_name] = cur_alternative[field_name] || info[field_name];
+    }
+    overwrite_info('artist');
+    overwrite_info('desc');
+    overwrite_info('name');
+    return info;
+  }
+  return default_info;
+};
+player.get_cur_info = get_cur_info;
 
 
 let _play = function() {
@@ -114,25 +124,23 @@ player.play_next = function() {
   let timeout = 0;
   while(timeout++ < 10000) {
     player.cur_alternative = 0;
+    player.alternatives_tried = 1;
     player.cur_song = song_order.get_next_song();
     if(yp.tag_data && !yp.tag_data.should_play(song_data[player.cur_song]) ) {
       continue;
     }
     const alternatives = song_data[player.cur_song].alternatives;
     const info = song_data[player.cur_song].info;
-    while(player.cur_alternative < alternatives.length) {
-      const song = alternatives[player.cur_alternative];
-      if((player.skip_expected_fail && song.expected_fail) || info.removed) {
-        player.cur_alternative++;
-        continue;
-      }
-      else {
-        break;
-      }
+    if(alternatives.length > 1) {
+      const weights = alternatives.map( (alternative) => (alternative.weight || 1) );
+      player.cur_alternative = song_order.weighted_select(alternatives, weights).index;
     }
-    if(player.cur_alternative < alternatives.length) {
-      break;
+    const song = alternatives[player.cur_alternative];
+    if((player.skip_expected_fail && song.expected_fail) || info.removed) {
+      player.try_alternative();
+      return;
     }
+    break;
   }
   _play();
 };
@@ -145,8 +153,12 @@ player.try_alternative = function() {
     return;
   }
 
-  player.cur_alternative++;
-  if(player.cur_alternative >= song_data[player.cur_song].alternatives.length) {
+  const num_alternatives = song_data[player.cur_song].alternatives.length;
+  while(player.alternatives_tried <= num_alternatives) {
+    player.cur_alternative = (player.cur_alternative + 1) % num_alternatives;
+    player.alternatives_tried++;
+  }
+  if(player.alternatives_tried > num_alternatives) {
     player.play_next();
   }
   else {

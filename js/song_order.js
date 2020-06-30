@@ -72,9 +72,9 @@ const weighted_select = function(items, weights, rand=Math.random) {
     let low = 0;
     let high = length - 1;
     while(low <= high) {
-        if(accumulative_lower[guess] <= random_point &&
-           random_point < accumulative_upper[guess]) {
-            return items[guess];
+        if(accumulative_lower[guess] <= random_point
+        && random_point < accumulative_upper[guess]) {
+            return { item: items[guess], index: guess };
         }
         if(random_point < accumulative_lower[guess]) {
             high = guess - 1;
@@ -85,6 +85,7 @@ const weighted_select = function(items, weights, rand=Math.random) {
         guess = Math.floor((high + low) / 2);
     }
 };
+song_order.weighted_select = weighted_select;
 
 
 song_order.get_next_song = function() {
@@ -125,7 +126,7 @@ song_order.get_next_song = function() {
             }
             else {
                 const weights = allowed_list.map( (index) => yp.song_weights[index] );
-                return weighted_select(allowed_list, weights);
+                return weighted_select(allowed_list, weights).item;
             }
         default:
             return 0;

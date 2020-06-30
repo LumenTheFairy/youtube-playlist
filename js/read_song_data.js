@@ -52,6 +52,10 @@ songs.forEach( function(song) {
       end: obj.end,
       volume: obj.volume,
       expected_fail: obj.expected_fail,
+      artist: obj.artist,
+      desc: obj.desc,
+      name: obj.name,
+      weight: obj.weight,
     };
   };
   if(song.alternatives) {
