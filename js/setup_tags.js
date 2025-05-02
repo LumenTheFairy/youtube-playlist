@@ -69,6 +69,8 @@ const tag_order = [
   'Anime',
   'Video Game',
   'Idol',
+  'VSinger',
+  'VTuber',
   'Vocaloid',
   'J-Pop',
   'Chiptune',
