@@ -170,7 +170,7 @@ window.onYouTubePlayerAPIReady = function() {
   player.p = new YT.Player('player', {
     width: '640',
     height: '360',
-    videoId: null,
+    // videoId: null,
     playerVars: {
       //controls: 0, // Don't show pause/play buttons in player
       fs: 0, //disable fullscreen
